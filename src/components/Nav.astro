@@ -40,25 +40,33 @@ const { transparent = false } = Astro.props;
 </div>
 
 <script>
+  // scrollHandler kept in module scope to remove it before re-adding on each navigation
+  let _scrollHandler: (() => void) | null = null;
+
   function initNav() {
     const nav       = document.getElementById('main-nav');
     const hamburger = document.getElementById('hamburger');
     const menu      = document.getElementById('mobile-menu');
     if (!nav) return;
 
-    // Sync scroll state immediately (important after view-transition navigation)
-    if (window.scrollY > 60) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+    // Always reset mobile menu state after a navigation
+    menu?.classList.remove('open');
+    hamburger?.classList.remove('open');
+    document.body.style.overflow = '';
 
-    window.addEventListener('scroll', () => {
+    // Replace scroll listener to avoid accumulation on window
+    if (_scrollHandler) window.removeEventListener('scroll', _scrollHandler);
+    _scrollHandler = () => {
       if (window.scrollY > 60) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
-    }, { passive: true });
+    };
+    _scrollHandler(); // sync immediately
+    window.addEventListener('scroll', _scrollHandler, { passive: true });
 
     hamburger?.addEventListener('click', () => {
-      const open = menu?.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
+      const isOpen = menu?.classList.toggle('open');
+      hamburger.classList.toggle('open', !!isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
     document.querySelectorAll('.mobile-link').forEach(a => {
@@ -70,6 +78,6 @@ const { transparent = false } = Astro.props;
     });
   }
 
-  initNav();
+  // astro:page-load fires on initial load AND after every view-transition navigation
   document.addEventListener('astro:page-load', initNav);
 </script>

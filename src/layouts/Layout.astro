@@ -49,9 +49,6 @@ const {
       reveals.forEach(el => observer.observe(el));
     }
 
-    // On first load
-    initReveal();
-    // After view-transition navigation
     document.addEventListener('astro:page-load', initReveal);
   </script>
 </body>
