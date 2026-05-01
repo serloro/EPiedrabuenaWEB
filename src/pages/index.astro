@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { servicios } from '../data/servicios';
+
+const HERO_BG  = 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/wp-content/uploads/2025/09/cropped-foto_encabezado.webp';
+const SOBRE_IMG = 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/wp-content/uploads/2025/09/boda1.webp';
+---
+
+<Layout transparentNav={true}>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src={HERO_BG} alt="" class="hero-bg-img" fetchpriority="high">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Fotografía · Valencia</p>
+      <h1 class="hero-title">Momentos<br><em>que perduran</em></h1>
+      <p class="hero-sub">Capturo la belleza auténtica de cada historia. Bodas, recién nacidos, fotografía de estudio y mucho más.</p>
+      <a href="#servicios" class="hero-cta">Ver mi trabajo</a>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <p>"La fotografía es el arte de congelar el tiempo."</p>
+    <div class="strip-line"></div>
+    <span class="strip-logo">Valencia · España</span>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="services-intro reveal">
+      <div>
+        <p class="section-eyebrow">Lo que ofrezco</p>
+        <h2 class="section-title">Mis <em>servicios</em></h2>
+      </div>
+      <p class="services-desc">
+        Cada sesión es única. Me adapto a cada cliente para crear imágenes que cuenten su historia con honestidad, emoción y un estilo propio.
+      </p>
+    </div>
+
+    <div class="services-grid reveal">
+      {servicios.map(s => (
+        <a href={`/seccion/${s.id}`} class="service-card">
+          <img
+            src={s.image}
+            alt={s.name}
+            loading="lazy"
+            transition:name={`hero-img-${s.id}`}
+          >
+          <div class="service-overlay"></div>
+          <div class="service-info">
+            <p class="service-num">{s.num}</p>
+            <h3 class="service-name">{s.name}</h3>
+            <p class="service-tagline">{s.tagline}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre">
+    <div class="sobre-image">
+      <img src={SOBRE_IMG} alt="Esther Piedrabuena">
+    </div>
+    <div class="sobre-content reveal">
+      <p class="section-eyebrow">Quién soy</p>
+      <blockquote class="sobre-quote">
+        "Creo que las mejores fotografías<br>se hacen con el corazón."
+      </blockquote>
+      <p class="sobre-text">
+        Soy Esther Piedrabuena, fotógrafa afincada en Valencia con pasión por los momentos auténticos. Desde bodas hasta recién nacidos, cada trabajo es una nueva historia que me emociona contar. Mi filosofía es sencilla: escuchar, sentir y disparar en el momento justo.
+      </p>
+      <div class="sobre-stats">
+        <div class="stat-item">
+          <span class="stat-num">+200</span>
+          <span class="stat-label">Bodas</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">8</span>
+          <span class="stat-label">Años</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">6</span>
+          <span class="stat-label">Especialidades</span>
+        </div>
+      </div>
+      <a href="mailto:contacto@epiedrabuena.com" class="contact-btn">Contactar</a>
+    </div>
+  </section>
+
+</Layout>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href) return;
+      const target = document.querySelector(href);
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>

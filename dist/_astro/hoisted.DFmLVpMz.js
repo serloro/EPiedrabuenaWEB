@@ -1,0 +1,1 @@
+import"./hoisted.B0UioSeG.js";document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",o=>{const t=e.getAttribute("href");if(!t)return;const r=document.querySelector(t);r&&(o.preventDefault(),r.scrollIntoView({behavior:"smooth"}))})});

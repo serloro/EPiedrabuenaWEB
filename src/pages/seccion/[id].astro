@@ -1,0 +1,138 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import { servicios, getServicioById } from '../../data/servicios';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return servicios.map(s => ({ params: { id: s.id } }));
+};
+
+const { id } = Astro.params;
+const servicio = getServicioById(id!);
+if (!servicio) return Astro.redirect('/');
+
+const otrosServicios = servicios.filter(s => s.id !== id);
+---
+
+<Layout
+  title={`${servicio.name} — Esther Piedrabuena Fotografía Valencia`}
+  description={servicio.description}
+  transparentNav={true}
+>
+
+  <!-- HERO -->
+  <div class="seccion-hero">
+    <div class="seccion-hero-bg">
+      <img
+        src={servicio.heroImage}
+        alt={servicio.name}
+        class="seccion-hero-bg-img"
+        fetchpriority="high"
+        transition:name={`hero-img-${servicio.id}`}
+      />
+      <div class="seccion-hero-overlay"></div>
+    </div>
+
+    <a href="/#servicios" class="seccion-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      Todos los servicios
+    </a>
+
+    <div class="seccion-hero-content">
+      <p class="seccion-num">{servicio.subtitle}</p>
+      <h1 class="seccion-hero-title">{servicio.name}</h1>
+      <p class="seccion-hero-tagline">{servicio.tagline}</p>
+    </div>
+  </div>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <p>{servicio.quote}</p>
+    <div class="strip-line"></div>
+    <span class="strip-logo">Valencia · España</span>
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="seccion-desc reveal">
+    <blockquote class="seccion-desc-quote">{servicio.description}</blockquote>
+    <p class="seccion-desc-text">{servicio.longDescription}</p>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="seccion-gallery">
+    <div class="seccion-gallery-header reveal">
+      <p class="section-eyebrow">Galería</p>
+      <h2 class="section-title">Mi <em>trabajo</em></h2>
+    </div>
+    <div class="gallery-grid reveal">
+      {servicio.gallery.map((img, i) => (
+        <div class="gallery-item" role="button" tabindex="0" aria-label={`Ver imagen ${i + 1}`}>
+          <img src={img} alt={`${servicio.name} ${i + 1}`} loading="lazy">
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- INCLUDES -->
+  <div class="seccion-includes">
+    <div class="reveal">
+      <p class="section-eyebrow">Qué incluye</p>
+      <h2 class="section-title">El <em>servicio</em></h2>
+    </div>
+    <div class="includes-grid reveal">
+      {servicio.includes.map(item => (
+        <div class="include-item">
+          <span>{item}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- OTROS SERVICIOS -->
+  <section style="background: var(--cream);">
+    <div class="services-intro reveal">
+      <div>
+        <p class="section-eyebrow">Descubre más</p>
+        <h2 class="section-title">Otros <em>servicios</em></h2>
+      </div>
+      <p class="services-desc">
+        Explora el resto de mis especialidades. Cada sesión está diseñada para contar tu historia de forma única.
+      </p>
+    </div>
+    <div class="services-grid reveal">
+      {otrosServicios.slice(0, 3).map(s => (
+        <a href={`/seccion/${s.id}`} class="service-card">
+          <img
+            src={s.image}
+            alt={s.name}
+            loading="lazy"
+            transition:name={`hero-img-${s.id}`}
+          >
+          <div class="service-overlay"></div>
+          <div class="service-info">
+            <p class="service-num">{s.num}</p>
+            <h3 class="service-name">{s.name}</h3>
+            <p class="service-tagline">{s.tagline}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="seccion-cta reveal">
+    <p class="section-eyebrow" style="text-align:center">¿Hablamos?</p>
+    <h2 class="section-title">¿Lista para <em>tu sesión</em>?</h2>
+    <p>Cuéntame tu historia y diseñaremos juntas la sesión perfecta para ti. Sin compromiso, con toda la ilusión del mundo.</p>
+    <div class="cta-buttons">
+      <a href="mailto:contacto@epiedrabuena.com" class="cta-primary">Contactar ahora</a>
+      <a href="/#servicios" class="cta-secondary">Ver todos los servicios</a>
+    </div>
+  </div>
+
+  <Lightbox images={servicio.gallery} altBase={servicio.name} />
+
+</Layout>

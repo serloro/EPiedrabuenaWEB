@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx astro *)",
+      "WebFetch(domain:webpage-epiedrabuena.165.227.138.41.sslip.io)",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=bodas\")",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=fallas\")",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=video\")",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=urbano\")",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=newborn\")",
+      "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=estudio\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=__TRACKED_VAR__')"
+    ]
+  }
+}

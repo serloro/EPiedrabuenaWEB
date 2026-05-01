@@ -1,0 +1,58 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  transparentNav?: boolean;
+}
+
+const {
+  title = 'Esther Piedrabuena — Fotografía Valencia',
+  description = 'Fotografía de bodas, fallas, newborn y estudio en Valencia. Capturo momentos que perduran.',
+  transparentNav = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <ViewTransitions />
+</head>
+<body>
+  <Nav transparent={transparentNav} />
+  <slot />
+  <Footer />
+
+  <script>
+    function initReveal() {
+      const reveals = document.querySelectorAll('.reveal:not(.visible)');
+      if (!reveals.length) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 120);
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(el => observer.observe(el));
+    }
+
+    // On first load
+    initReveal();
+    // After view-transition navigation
+    document.addEventListener('astro:page-load', initReveal);
+  </script>
+</body>
+</html>
