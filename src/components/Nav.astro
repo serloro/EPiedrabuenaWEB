@@ -26,6 +26,15 @@ const { transparent = false } = Astro.props;
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
+
+  <button class="mobile-close mobile-link" id="mobile-close" aria-label="Cerrar menú">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+
+  <a href="/" class="mobile-link">Inicio</a>
   <a href="/#servicios" class="mobile-link">Servicios</a>
   <a href="/#sobre" class="mobile-link">Sobre mí</a>
   <a href="mailto:contacto@epiedrabuena.com" class="mobile-link">Contacto</a>

@@ -135,6 +135,7 @@ nav.scrolled .nav-hamburger span { background: var(--soft-black); }
   transition: opacity 0.35s;
 }
 .mobile-menu.open { opacity: 1; pointer-events: all; }
+
 .mobile-menu a {
   font-family: var(--serif);
   font-size: 2.2rem;
@@ -146,6 +147,30 @@ nav.scrolled .nav-hamburger span { background: var(--soft-black); }
   transition: color 0.2s;
 }
 .mobile-menu a:hover { color: var(--accent); }
+
+.mobile-close {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  background: none;
+  border: 0.5px solid rgba(247,244,239,0.2);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(247,244,239,0.55);
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+  font-style: normal;
+  font-size: 0;
+}
+.mobile-close svg { width: 20px; height: 20px; }
+.mobile-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 
 /* ---- HERO ---- */
 .hero {
