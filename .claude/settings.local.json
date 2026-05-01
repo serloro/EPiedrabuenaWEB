@@ -11,7 +11,10 @@
       "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=newborn\")",
       "Bash(curl -s \"http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=estudio\")",
       "Bash(python3 -c ' *)",
-      "Bash(curl -s 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=__TRACKED_VAR__')"
+      "Bash(curl -s 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/?section=__TRACKED_VAR__')",
+      "Bash(grep -oP '\\(?<=\\\\$\\\\{BASE\\\\}/\\)[a-zA-Z0-9._-]+\\\\.webp' /Volumes/SEGUNDO_DISCO/PROYECTOS/EPiedrabuena/src/data/servicios.ts)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(grep -v \"^$\")"
     ]
   }
 }

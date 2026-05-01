@@ -13,7 +13,7 @@ export interface Servicio {
   quote: string;
 }
 
-const BASE = 'http://webpage-epiedrabuena.165.227.138.41.sslip.io/wp-content/uploads/2025/09';
+const BASE = '/images';
 
 export const servicios: Servicio[] = [
   {
